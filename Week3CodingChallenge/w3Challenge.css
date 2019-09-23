@@ -1,0 +1,33 @@
+
+header{
+    text-align: center;
+    border: 3px solid black;
+    border-color: darkgoldenrod;
+    
+}
+
+body{
+    background-image: url("bg.jpg");
+    background-repeat: no-repeat;
+     background-position: cover;
+     background-size: cover;
+
+}
+p {
+    
+    border: 3px solid darkgoldenrod;
+    padding: 10px;
+    font-style: bold;
+    text-align: justify;
+  }
+
+button {
+    background-color: burlywood; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
