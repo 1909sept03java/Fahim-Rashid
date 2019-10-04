@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Manager Profile</title>
+	<link rel="stylesheet" href="profilePage.css">
+
+</head>
+<body>
+
+<div style="background-color:beige;border:1px solid black;">
+<br>
+<h1>Welcome to the Manager HomePage</h1>
+</div>
+
+	<div>
+		<span>To view your personal Info:</span>	<span>To view your personal Info:</span>
+		
+		<button type="button" id="button">Load Personal Info</button>
+	</div>
+	
+	<div>
+	<center><table id="profileTable"=style="width:100%">
+		<tbody id="tbody">
+		  <tr>
+		  <th id="th3">User ID</th>
+		    <th id="th1">Firstname</th>
+		    <th id="th2">Lastname</th>
+		    
+		  </tr>
+		 </tbody>
+	</table></center>
+	</div>	
+
+<h3>View Reimbursement Requests</h3>
+<button type="button" id="showRequests">Show Requests</button>
+<br>
+<div>
+<center><table id="tab" style="	border:1px solid black;
+	border-collapse: collapse;
+ 	background: beige;
+	text-align: center;
+	opacity: 0.8;
+	text-size: 10;">
+</table></center>
+</div>
+
+
+
+      
+      <div>
+      	<h3>Manage Reimbursement Requests</h3>
+      	<form action="manager" method="post">
+      		<input type=number placeholder="Request ID" name="requestId"> </input>
+      		<input type="submit" value="Accept" name="choice">
+      		<input type="submit" value="Reject" name="choice">
+      	</form>
+  
+      </div>
+      <br>
+ <div>
+      	<form action="logout" method="get">
+		<input type="submit" value="logout"/>
+	</form>
+      </div>     
+      
+      
+      
+</body>
+
+<script>
+window.onload=function(){
+
+    //let url="http://localhost:8082/ProjectOne/session";
+    //sendAjaxGet(url,logMe);
+    document.getElementById("button").addEventListener("click",getInfo);
+    document.getElementById("showRequests").addEventListener("click",showRequests);
+    document.getElementById("formbutton").addEventListener("click",from);
+    
+  //  document.getElementById("AcceptButton").addEventListener("click",accept);
+
+}
+
+function getInfo(){
+	 let url="http://localhost:8082/ProjectOne/session";
+    fetch(url,{method:"GET", headers:{"Accept":"application/json"}})
+    .then((response)=>{
+        let data=response.json();
+        return data;
+    })
+    .then((data)=>{
+        //let ul=document.getElementById("info")
+       // let tb=document.getElementById("profileTable")
+       let tb=document.getElementById("tbody")
+        
+		tb.innerHTML=`
+		<tr>
+		<th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>     
+        </tr>
+        
+        <tr>
+        <td>${data.userId}</td>
+        <td>${data.firstname}</td>
+        <td>${data.lastname}</td>
+        </tr>
+		`
+  
+        console.log(data);
+    })
+}
+
+function showRequests(){
+	 let url="http://localhost:8082/ProjectOne/allReimbursements";
+  fetch(url,{method:"GET", headers:{"Accept":"application/json"}})
+  .then((response)=>{
+      let data=response.json();
+      return data;
+  })
+  .then((data)=>{
+
+	  let array=JSON.stringify(data);
+	   
+	data.forEach(req=>{
+	
+		let list=document.getElementById("tab");
+		let entry=document.createElement("tr");
+
+		entry.innerHTML=`Request ID:${JSON.stringify(req.requestId)} Amount: ${JSON.stringify(req.amount)} User ID: ${req.userId} Status: ${req.status}`
+		list.appendChild(entry);
+		
+		
+		console.log(req);		
+		})
+	})
+}
+
+function from(){
+	 let url="http://localhost:8082/ProjectOne/allReimbursements";
+ fetch(url,{method:"GET", headers:{"Accept":"application/json"}})
+ .then((response)=>{
+     let data=response.json();
+     return data;
+ })
+ .then((data)=>{
+
+	 // let array=JSON.stringify(data);
+	// let array=data;
+	  //var i;
+	  //for(i=0;i<array.length;i++){
+		 // let from=document.getElementById("myform");
+		 // from.innerHTML+=`
+		 // <p>${JSON.stringify(array)}</p>`
+		  
+	 // }
+	   		var i=0;
+
+	data.forEach(req=>{
+
+		let from=document.getElementById("myform");
+		
+		from.innerHTML +=`
+		<p>${JSON.stringify(req)}</p>
+		<input type="checkbox"  name="choice" value="Accept">Accept
+		<input type="checkbox"  name="choice"value="Reject">Reject
+				
+		`
+		i+=1;
+		console.log(req.requestId);
+		//console.log(req);		
+	})
+	})
+}
+
+
+
+</script>
+</html>

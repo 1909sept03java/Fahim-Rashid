@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Profile Page</title>
+
+	<link rel="stylesheet" href="profilePage.css">
+	
+</head>
+<body>
+
+<div style="background-color:beige;border:1px solid black;">
+<br>
+<h1>Welcome to the Employee HomePage</h1>
+</div>
+<br>
+	<div>
+	<span>To view your personal Info:</span>
+		<button type="button" id="button">Load User Info</button>
+	</div>
+
+	<center><div class="mytable">
+	<table id="profileTable" >
+		<tbody id="tbody">
+
+		 </tbody>
+	</table>	
+	</div>	</center>
+		<br><br>
+	<span>
+		<form action="profile" method="post">
+		<h2>Reimbursement Request</h2>
+		<p>To request a reimbursement, enter the amount below.
+		A supervisor will review your request shortly
+		Request may be Approved or Denied following inspection</p>
+			Amount:<input type="number" name="requestAmount"> </input>	
+			<br>
+			<input type="Submit" value="Submit Request"/>
+		</form>
+	
+	</span>
+	<br>
+	<br>
+	<div>
+		<button type="button" id="reimbursement">View Your Requests</button>
+		<ul id="requestList">
+		</ul>
+		<center><table id="reimbursementTable" style="border:1px solid black;
+	border-collapse: collapse;
+ 	background: beige;
+	text-align: center;
+	opacity: 0.8;
+	text-size: 10;">
+
+		</table>
+		</center>
+	</div>
+	<br>
+	<br>
+	<div>
+		<form  action="logout" method="get">
+		<input style="background-color: red;
+  border: 1px solid-black;
+  color: white;
+  text-align: center;
+  position:absolute;
+  bottom: 20px;
+  right: 15px;
+  display: inline-block;
+  font-size: 12px;
+  "type="submit" value="logout"/>
+	</form>
+
+	
+	</div>
+		
+		
+		
+
+
+
+
+</body>
+<script>
+window.onload=function(){
+
+    //let url="http://localhost:8082/ProjectOne/session";
+    //sendAjaxGet(url,logMe);
+    document.getElementById("button").addEventListener("click",getInfo);
+    document.getElementById("reimbursement").addEventListener("click",showRequests);
+
+
+}
+
+function getInfo(){
+	 let url="http://localhost:8082/ProjectOne/session";
+    fetch(url,{method:"GET", headers:{"Accept":"application/json"}})
+    .then((response)=>{
+        let data=response.json();
+        return data;
+    })
+    .then((data)=>{
+        //let ul=document.getElementById("info")
+       // let tb=document.getElementById("profileTable")
+       let tb=document.getElementById("tbody")
+        
+		tb.innerHTML=`
+		<tr>
+        <th>'User ID'</th>
+        <th>'First Name'</th>
+        <th>'Last Name'</th>
+        </tr>
+        <tr>
+        <td>${data.userId}</td>
+        <td>${data.firstname}</td>
+        <td>${data.lastname}</td>
+        </tr>
+		`
+  
+        console.log(data);
+    })
+}
+
+function showRequests(){
+	 let url="http://localhost:8082/ProjectOne/reimbursement";
+   fetch(url,{method:"GET", headers:{"Accept":"application/json"}})
+   .then((response)=>{
+       let data=response.json();
+       return data;
+   })
+   .then((data)=>{
+     //let ul = document.getElementById("requestList");
+     
+     data.forEach(req=>{
+    	  	let tb=document.getElementById("reimbursementTable");
+    	  	let row=document.createElement("tr");
+    	  	row.innerHTML=`Request ID:${JSON.stringify(req.requestId)}    Amount: ${JSON.stringify(req.amount)}   Status: ${JSON.stringify(req.status)}`
+    	  	tb.appendChild(row);
+    	     console.log(data);
+    		})
+     })
+ 
+}
+
+</script>
+
+</html>

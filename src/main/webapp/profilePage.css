@@ -1,0 +1,50 @@
+@charset "ISO-8859-1";
+
+body {
+	background-image: url("backgroound.jpg");
+	text-align: center;
+	  font-family: verdana;
+	  border:2px solid black;
+	
+
+}
+
+
+tab,th,td{
+	border:1px solid black;
+	border-collapse: collapse;
+ 	background: beige;
+	text-align: center;
+	opacity: 0.8;
+	text-size: 10;
+}
+.myTable{
+	text-align: center;
+}
+
+
+button{
+background-color: #4CAF50;
+  border: 1px solid-black;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
+
+}
+
+	
+div{
+
+	}
+reimbursementRequestDiv{
+	background-style: black;
+	border: 1px solid black;
+}
+
+.reimbursementTable{
+	align: center;
+	background-color: black;
+	border: 1px solid black;
+	
+}

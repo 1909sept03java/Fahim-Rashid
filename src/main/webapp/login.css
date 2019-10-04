@@ -1,0 +1,35 @@
+@charset "ISO-8859-1";
+
+body {
+	background-image: url("backgroound.jpg");
+	text-align: center;
+	padding: 5rem;
+	margin: 5rem;
+}
+
+Login{
+
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button{
+  background-color: beige;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+div{
+	opacity:0.5;
+}
+}
